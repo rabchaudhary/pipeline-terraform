@@ -18,10 +18,13 @@ steps:
       command: 'init'
       workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
       backendServiceArm: 'azure-terraform'
-      backendAzureRmResourceGroupName: '<resource-group-name>'
-      backendAzureRmStorageAccountName: '<storage-account-name>'
-      backendAzureRmContainerName: '<container-name>'
+      backendAzureRmResourceGroupName: 'terraform-state-rg'
+      backendAzureRmStorageAccountName: 'tfstatehifive1sp'
+      backendAzureRmContainerName: 'tfstate'
       backendAzureRmKey: 'terraform.tfstate'
+    env:
+      CHECKPOINT_DISABLE: '1'
+      TF_IN_AUTOMATION: 'true'
 
   - task: TerraformTaskV4@4
     displayName: 'Terraform Plan'
@@ -30,6 +33,9 @@ steps:
       command: 'plan'
       workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
       environmentServiceNameAzureRM: 'azure-terraform'
+    env:
+      CHECKPOINT_DISABLE: '1'
+      TF_IN_AUTOMATION: 'true'
 
   - task: TerraformTaskV4@4
     displayName: 'Terraform Apply'
@@ -38,3 +44,6 @@ steps:
       command: 'apply'
       workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
       environmentServiceNameAzureRM: 'azure-terraform'
+    env:
+      CHECKPOINT_DISABLE: '1'
+      TF_IN_AUTOMATION: 'true'
