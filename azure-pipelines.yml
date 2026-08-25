@@ -17,6 +17,11 @@ steps:
       provider: 'azurerm'
       command: 'init'
       workingDirectory: '$(System.DefaultWorkingDirectory)/parent_module'
+      backendServiceArm: 'azure-terraform'
+      backendAzureRmResourceGroupName: '<resource-group-name>'
+      backendAzureRmStorageAccountName: '<storage-account-name>'
+      backendAzureRmContainerName: '<container-name>'
+      backendAzureRmKey: 'terraform.tfstate'
 
   - task: TerraformTaskV4@4
     displayName: 'Terraform Plan'
